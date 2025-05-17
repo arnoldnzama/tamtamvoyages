@@ -194,7 +194,7 @@ document.getElementById('reservationForm')?.addEventListener('submit', function(
             if (data.success) {
                 form.reset();
                 const confirmation = document.createElement('div');
-                confirmation.className = 'fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded shadow-lg z-50';
+                confirmation.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-600 text-white px-8 py-4 rounded-lg shadow-xl z-50 text-center min-w-[300px]';
                 confirmation.textContent = data.message || 'Votre réservation a été enregistrée avec succès.';
                 document.body.appendChild(confirmation);
                 setTimeout(() => {
