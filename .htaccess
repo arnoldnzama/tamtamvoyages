@@ -1,0 +1,71 @@
+# Forcer HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Protection contre les injections
+<IfModule mod_rewrite.c>
+    RewriteCond %{QUERY_STRING} (["'\\].*(<|>|%3)|(<|%3C).*script.*(>|%3)|\\|\.\.\\.\.\..*) [NC,OR]
+    RewriteCond %{QUERY_STRING} (javascript:|vbscript:) [NC,OR]
+    RewriteCond %{QUERY_STRING} (boot\.ini|etc/passwd|self/environ) [NC]
+    RewriteRule ^(.*)$ - [F]
+</IfModule>
+
+# Protection XSS et autres
+Header always set X-XSS-Protection "1; mode=block"
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self';"
+
+# Protection contre les attaques par force brute
+<IfModule mod_security2.c>
+    SecRuleEngine On
+    SecRequestBodyAccess On
+    SecRule REQUEST_METHOD "^POST$" "chain,phase:1,deny,status:403"
+    SecRule RATE:IP "gt 10" "window:60"
+</IfModule>
+
+# Cache et compression
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+    
+    # Images
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # CSS, JavaScript
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    
+    # Fonts
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css text/javascript
+    AddOutputFilterByType DEFLATE application/xml application/xhtml+xml application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE application/x-httpd-php
+    AddOutputFilterByType DEFLATE application/x-yaml application/json
+</IfModule>
+
+# Protection des fichiers sensibles
+<FilesMatch "^\.(htaccess|htpasswd|ini|log|yml|yaml|xml|conf|sql|md|git|env|env\..*|lock)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Désactiver l'affichage du contenu des répertoires
+Options -Indexes
+
+# Page d'index par défaut
+DirectoryIndex index.html index.php

@@ -1,0 +1,272 @@
+:where([class^="ri-"])::before { 
+    content: "\f3c2"; 
+}
+
+/* Améliorations générales */
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Amélioration du header */
+header {
+    backdrop-filter: blur(8px);
+    background-color: rgba(17, 24, 39, 0.95);
+    transition: all 0.3s ease;
+}
+
+/* Animation des liens de navigation */
+nav a {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 50%;
+    background-color: #0dbb00;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* Amélioration des boutons */
+.bg-primary {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(245, 167, 0, 0.1);
+}
+
+.bg-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(245, 167, 0, 0.2);
+}
+
+/* Amélioration des cartes de véhicules */
+.car-slide {
+    transition: all 0.3s ease;
+    transform: scale(0.98);
+}
+
+.car-slide:hover {
+    transform: scale(1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Amélioration des témoignages */
+.testimonial-slide {
+    transition: all 0.3s ease;
+    background: linear-gradient(145deg, #ffffff, #f5f5f5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Amélioration du formulaire */
+input, select, textarea {
+    transition: all 0.3s ease;
+    border: 2px solid #e5e7eb;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #0dbb00;
+    box-shadow: 0 0 0 3px rgba(13, 187, 0, 0.1);
+    outline: none;
+}
+
+/* Animation de scroll */
+.scroll-smooth {
+    scroll-behavior: smooth;
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+    #mobile-menu {
+        transition: all 0.3s ease;
+        transform-origin: top;
+    }
+
+    #mobile-menu.hidden {
+        transform: scaleY(0);
+        opacity: 0;
+    }
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+    opacity: 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.custom-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.custom-checkbox input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: #0066FF;
+    border-color: #0066FF;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.custom-checkbox .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.custom-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23666'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1em;
+}
+
+.testimonial-slider {
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+.testimonial-slide {
+    scroll-snap-align: start;
+}
+
+.car-slider {
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+.car-slide {
+    scroll-snap-align: start;
+}
+
+.custom-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.custom-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #0066FF;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+/* Ajout pour les titres */
+.text-\[\#0dbb00\] {
+    color: #0dbb00;
+}
+
+/* Hover personnalisé */
+.hover\:bg-\[\#0dbb00\]:hover {
+    background-color: #0dbb00;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+
+/* Ajouts pour le responsive et IE */
+.testimonial-slider {
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    scroll-snap-type: x mandatory;
+    -ms-scroll-snap-type: x mandatory;
+}
+
+/* Correction Flexbox pour IE */
+.grid {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    /* Styles spécifiques pour IE */
+    .car-slide {
+        width: 100% !important;
+    }
+}
